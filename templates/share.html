@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block jquery %}
+
+$signUpCount = 45;
+//$(".progress-bar").css("width", "80%").attr("aria-valuenow", "80").text("80%");
+
+function completedBlock(progressBarId){
+    $(progressBarId).css("width", "100%").attr("aria-valuenow", "100").text("Completed");
+}
+
+if($signUpCount == 0){
+
+}
+else if($signUpCount > 0 && $signUpCount <= 5){
+    $newPercent = $signUpCount/5 * 100;
+    $("#count5").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+}else if($signUpCount>=5 && $signUpCount < 15){
+    completedBlock("#count5");
+    $newCount = $signUpCount - 5
+    $newPercent = $newCount/(15-5) * 100;
+    $("#count15").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+}else if($signUpCount >=15 && $signUpCount < 25){
+    completedBlock("#count5");
+    completedBlock("#count15");
+    $newCount = $signUpCount - 15;
+    $newPercent = $newCount/(25-15) * 100;
+    $("#count25").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+}else if($signUpCount >= 25 && $signUpCount < 50){
+    completedBlock("#count5");
+    completedBlock("#count15");
+    completedBlock("#count25");
+
+    $newCount = $signUpCount - 25;
+    $newPercent = $newCount/(50-25) * 100;
+    $("#count50").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+}else{
+
+}
+{% endblock %}
 {% block content %}
 {% include "navbar.html" %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -34,8 +72,8 @@ Joined number is: {{ count }} <br/>
         <div class="col-sm-3">
         <h3>5 Joined</h3>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                    It is 100%
+                  <div class="progress-bar" id='count5' role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    It is 50%
                   </div>
             </div>
             <h4>Reward Name</h4>
@@ -54,7 +92,7 @@ Joined number is: {{ count }} <br/>
             <div class="col-sm-3">
             <h3>15 Joined</h3>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                  <div class="progress-bar" id='count15' role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                     It is 100%
                   </div>
             </div>
@@ -74,7 +112,7 @@ Joined number is: {{ count }} <br/>
             <div class="col-sm-3">
             <h3>25 Joined</h3>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                  <div class="progress-bar" id='count25' role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                     It is 100%
                   </div>
             </div>
@@ -94,7 +132,7 @@ Joined number is: {{ count }} <br/>
         <div class="col-sm-3">
         <h3>50 Joined</h3>
             <div class="progress">
-              <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+              <div class="progress-bar" id='count50' role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                 It is 100%
               </div>
         </div>
