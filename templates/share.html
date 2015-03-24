@@ -2,30 +2,43 @@
 {% load staticfiles %}
 {% block jquery %}
 
-$signUpCount = 45;
+$signUpCount = {{ count }};
 //$(".progress-bar").css("width", "80%").attr("aria-valuenow", "80").text("80%");
 
 function completedBlock(progressBarId){
     $(progressBarId).css("width", "100%").attr("aria-valuenow", "100").text("Completed");
-}
+};
 
+function setNewPerc(progressBarId, percetNum, newText){
+    $(progressBarId).css("width", percetNum + "%").attr("aria-valuenow", percetNum)
+
+    if (percetNum < 50) {
+        //$(progressBarId).text("your Custom text");
+        $(progressBarId).text(newText);
+    } else {
+        $(progressBarId).text(newText);
+    }
+};
 if($signUpCount == 0){
 
 }
-else if($signUpCount > 0 && $signUpCount <= 5){
+else if($signUpCount > 0 && $signUpCount < 5){
     $newPercent = $signUpCount/5 * 100;
-    $("#count5").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+    setNewPerc("#count5", $newPercent, "Number of Friends: " + $signUpCount);
+
 }else if($signUpCount>=5 && $signUpCount < 15){
     completedBlock("#count5");
     $newCount = $signUpCount - 5
     $newPercent = $newCount/(15-5) * 100;
-    $("#count15").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+    setNewPerc("#count15", $newPercent, "Number of Friends: " + $signUpCount);
+
 }else if($signUpCount >=15 && $signUpCount < 25){
     completedBlock("#count5");
     completedBlock("#count15");
     $newCount = $signUpCount - 15;
     $newPercent = $newCount/(25-15) * 100;
-    $("#count25").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+    setNewPerc("#count25", $newPercent, "Number of Friends: " + $signUpCount);
+
 }else if($signUpCount >= 25 && $signUpCount < 50){
     completedBlock("#count5");
     completedBlock("#count15");
@@ -33,8 +46,13 @@ else if($signUpCount > 0 && $signUpCount <= 5){
 
     $newCount = $signUpCount - 25;
     $newPercent = $newCount/(50-25) * 100;
-    $("#count50").css("width", $newPercent + "%").attr("aria-valuenow", $newPercent).text($newPercent + "%");
+    setNewPerc("#count50", $newPercent, "Number of Friends: " + $signUpCount);
+
 }else{
+    completedBlock("#count5");
+    completedBlock("#count15");
+    completedBlock("#count25");
+    completedBlock("#count50");
 
 }
 {% endblock %}
