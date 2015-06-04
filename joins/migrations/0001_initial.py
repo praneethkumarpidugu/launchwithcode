@@ -13,13 +13,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Join',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('email', models.EmailField(max_length=75)),
+                ('ref_id', models.CharField(unique=True, max_length=120, default='ABC')),
+                ('ip_address', models.CharField(max_length=120, default='ABC')),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
+                ('friend', models.ForeignKey(related_name='referral', to='joins.Join', null=True, blank=True)),
             ],
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='join',
+            unique_together=set([('email', 'ref_id')]),
         ),
     ]
